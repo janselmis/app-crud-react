@@ -67,5 +67,5 @@ rutasAPI.route("/").get(function(reqPeticionHttp, resRespuestaHttp){
 
 //DELETE: Delete usuarios
 rutasAPI.route("/:id").delete(function(req,res){
-    Usuario.find(id).remove().exec();
+    Usuario.findById(req.params.id).remove().exec();
 });

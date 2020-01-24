@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
-//TODO: Validaciones de campos BBDD.¡OBLIGATORIO!
-let Usuario = new Schema( {
-    Nombre:{
-        type: String                        //Definiendo la clase por eso esta en MAYUSCULA la primera letra.
+//TODO: Validaciones de campos en BBDD. ¡OBLIGATORIO!
+let Usuario = new Schema({
+    nombre: {
+        type: String
     },
-    email:{
-        type: String                        //Definiendo la clase por eso esta en MAYUSCULA la primera letra.
+    email: {
+        type: String // String en mayus
+    },
+    edad:{
+        type: Number
     },
     password:{
-        type: String                        //Definiendo la clase por eso esta en MAYUSCULA la primera letra.
+        type: String
     }
 });
 
-//Como el export default pero para NODE.
-module.exports = mongoose.model('Usuario', Usuario);
+// Como el export default pero para Node...
+module.exports = mongoose.model('Usuario',Usuario);

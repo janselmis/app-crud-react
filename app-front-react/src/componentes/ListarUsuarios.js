@@ -35,7 +35,7 @@ class ListarUsuarios extends Component{
         console.log(id);
         //let index = el.dataset.index
 
-        fetch(`hhttp://localhost:4000/api/usuarios/${id}`, {
+        fetch(`http://localhost:4000/api/usuarios/${id}`, {
             method: 'DELETE',
             mode: 'cors'
         })
