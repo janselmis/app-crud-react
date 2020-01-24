@@ -9,12 +9,12 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(5px + 1vmin);
+  font-size: calc(8px + 1vmin);
   color: white;
 }
 
@@ -22,3 +22,19 @@
   color: #61dafb;
 }
 
+/* @media (){
+
+} */
+.App-logo{
+  animation: App-logo-vueltas infinite 20s linear;
+}
+/*Definimos posiciones, rotaciones, etc, 
+en la linea de tiempo*/
+@keyframes App-logo-vueltas {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
