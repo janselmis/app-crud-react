@@ -78,6 +78,8 @@ class CrearUsuario extends /*React.*/ Component {
 
     }
 
+    //Comentario para probar GIT kraken
+
     render(){
         return (
             <div>
