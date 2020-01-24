@@ -40,7 +40,10 @@ class ListarUsuarios extends Component{
             mode: 'cors'
         })
          .catch(err => console.error(err))
-         .then(res => res)
+         .then(res => res);
+
+         window.location.reload();
+
     }
 
     render(){
