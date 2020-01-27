@@ -6,6 +6,7 @@ class ListarUsuarios extends Component{
         super(props);
 
         this.deletePost = this.deletePost.bind(this);
+        //this.onUpdate = this.onUpdate.bind(this);
     }
     
     // Equivalente al ngOnInit(): El componente ha sido montado
@@ -33,18 +34,38 @@ class ListarUsuarios extends Component{
         let el = ev.target;
         let id = el.dataset.idusu;
         console.log(id);
-        //let index = el.dataset.index
 
         fetch(`http://localhost:4000/api/usuarios/${id}`, {
             method: 'DELETE',
             mode: 'cors'
         })
-         .catch(err => console.error(err))
-         .then(res => res);
+        .catch(err => console.error(err))
+        .then(res => res);
 
-         window.location.reload();
+        window.location.reload();
 
     }
+
+    // onUpdate(ev){
+    //     let el = ev.target;
+    //     let id = el.dataset.idusu;
+    //     console.log(id);
+    //     //let index = el.dataset.index
+
+    //     window.fetch(`http://localhost:4000/api/usuarios/edit/${id}`, {
+    //         method: 'put',
+    //         body: JSON.stringify({
+    //             "nombre": this.state.nombre,
+    //             "email": this.state.email,
+    //             "edad": this.state.edad,
+    //             "password": this.state.password
+    //         }),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then((res)=>alert("Pues habra ido bien"))
+    //     .catch((vacas)=>alert("Pues habra ido mal"));
+    // }
 
     render(){
         let objViDomJSX;
@@ -64,6 +85,9 @@ class ListarUsuarios extends Component{
                             <td>{usu.edad}</td>
                             <td>
                                 <button type="submit" data-idusu={usu._id} onClick={this.deletePost}>Delete</button>
+                            </td>
+                            <td>
+                                <button type="submit" data-idusu={usu._id}><a href={'/api/usuarios/edit/'+usu._id}>Update</a></button>
                             </td>
                         </tr>);
             });

@@ -1,10 +1,11 @@
 // Componente raiz del proyecto
 import React from "react";
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import logo from "../logo.svg";
 import './App.css';
 import CrearUsuario from './CrearUsuario';
 import ListarUsuario from './ListarUsuarios';
+import EditarUsuario from './EditarUsuario';
 
 function App(){
     let estiloLogo = { 
@@ -27,6 +28,7 @@ function App(){
                 </nav>
                 <Route path="/" exact component={ ListarUsuario }/>
                 <Route path="/registro" component={ CrearUsuario }/>
+                <Route path="/api/usuarios/edit/:id" component={ EditarUsuario }/>
             </div>
         </Router>
     );

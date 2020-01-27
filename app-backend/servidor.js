@@ -69,3 +69,24 @@ rutasAPI.route("/").get(function(reqPeticionHttp, resRespuestaHttp){
 rutasAPI.route("/:id").delete(function(req,res){
     Usuario.findById(req.params.id).remove().exec();
 });
+
+//UPDATE: Modificar usuario, ESTO FUNCIONA
+rutasAPI.route("/edit/:id").put(function(req,res){
+    let editUsu = new Usuario(req.body);
+    editUsu._id = req.params.id;
+    Usuario.findById(editUsu._id, function(err,user){
+        for(const prop in req.body){
+            user[prop] = req.body[prop];
+        }
+        user.save();
+    }).then(res=>res).catch(err=>err);
+});
+
+//GET UNIQUE USER: ESTO VA A FUNCIONAR
+rutasAPI.route("/getUser/:id").get(function(req,res){
+    const id = req.params.id;
+    console.log('id', id);
+    Usuario.findById(id)
+        .then(response=>res.status(200).send(response))
+        .catch(err=>err);
+});
