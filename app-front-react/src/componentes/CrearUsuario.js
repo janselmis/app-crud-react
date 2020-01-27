@@ -61,7 +61,29 @@ class CrearUsuario extends Component{
               formIsValid = false;
               errors["email"] = "Email no valido";
             }
-       }  
+        }
+        
+        //Edad
+        if(!this.state.edad){
+            formIsValid = false;
+            errors["edad"] = "No puede estar vacio";
+        }
+
+        if(typeof this.state.edad !== "undefined"){
+            if(this.state.edad>=100){
+                formIsValid = false;
+                errors["edad"] = "Introduzca una edad valida";
+            }
+        }
+
+        //Contraseña
+        if(typeof this.state.password !== "undefined"){
+            if(this.state.password.length<8){
+                formIsValid = false;
+                errors["password"] = "La contraseña debe tener mas de 8 carac.";
+            }
+        }
+
        this.setState({errors: errors});
        return formIsValid;
     }
@@ -139,7 +161,7 @@ class CrearUsuario extends Component{
                                 value={ this.state.email }
                                 onChange = { this.onChangeEmail }
                                 required/>
-                         <p style={{color: "red"}}>{this.state.errors["email"]}</p>
+                        <p style={{color: "red"}}>{this.state.errors["email"]}</p>
                     </div>
                     <div>
                         <label>Edad:</label>
@@ -148,14 +170,16 @@ class CrearUsuario extends Component{
                                 value={ this.state.edad }
                                 onChange = { this.onChangeEdad }
                                 required/>
+                        <p style={{color: "red"}}>{this.state.errors["edad"]}</p>
                     </div>
                     <div>
                         <label>Password:</label>
                         <input type="password"
-                                placeholder="Max 8 carac"
+                                placeholder="Min 8 caracteres"
                                 value={ this.state.password }
                                 onChange = { this.onChangePassword }
                                 required/>
+                        <p style={{color: "red"}}>{this.state.errors["password"]}</p>
                     </div>
                     <div>
                         <input type="submit" value="Registrar"/>

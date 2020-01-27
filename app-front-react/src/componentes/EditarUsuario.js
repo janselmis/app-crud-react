@@ -137,7 +137,7 @@ class CrearUsuario extends Component{
                                 onChange = { this.onChangePassword }/>
                     </div>
                     <div>
-                        <input type="button" onClick={(e) => this.onSubmit(e)} value="Registrar"/>
+                        <input type="button" onClick={(e) => this.onSubmit(e)} value="Actualizar"/>
                     </div>
                 </form>
             </div>
