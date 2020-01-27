@@ -68,6 +68,28 @@ rutasAPI.route("/").get(function(reqPeticionHttp, resRespuestaHttp){
 //DELETE: Delete usuarios
 rutasAPI.route("/:id").delete(function(req,res){
     Usuario.findById(req.params.id).remove().exec();
+
+    //OTRA FORMA
+    // let consultaFindOne = Usuario.findById(req.params.id);
+    // consultaFindOne.exec((err,resDoc)=>{
+    //     if(err){
+    //         res.json({"mensaje":"No se ha encontrado"});
+    //     }else{
+    //         console.log("Usuario encontrado", resDoc);
+    //         consultaFindOne.deleteOne().exec(
+    //             (err,resDoc2)=>{
+    //                 let msjResp = "";
+    //                 if(resDoc2.deletedCount>=1){
+    //                     msjResp = "ELIMINADO";
+    //                 }else{
+    //                     msjResp = "NO eliminado";
+    //                 }
+    //                 console.log(resDoc2);
+    //                 res.json({"mensaje":msjResp});
+    //             }
+    //         )
+    //     }
+    // })
 });
 
 //UPDATE: Modificar usuario, ESTO FUNCIONA

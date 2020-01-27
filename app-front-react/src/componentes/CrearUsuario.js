@@ -70,7 +70,7 @@ class CrearUsuario extends Component{
         }
 
         if(typeof this.state.edad !== "undefined"){
-            if(this.state.edad>=100){
+            if(this.state.edad<=12 || this.state.edad>=100){
                 formIsValid = false;
                 errors["edad"] = "Introduzca una edad valida";
             }
@@ -104,8 +104,10 @@ class CrearUsuario extends Component{
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then((res)=>alert("Pues habra ido bien"))
-            .catch((vacas)=>alert("Pues habra ido mal"));
+            }).then((res)=> {
+                console.log(`Pues habra ido bien: ${res}`);
+            })
+            .catch((error)=>console.log(`Pues habra ido mal: ${error}`));
 
             window.location = "/";
         }else{
@@ -152,7 +154,7 @@ class CrearUsuario extends Component{
                                 value={ this.state.nombre }
                                 onChange = { this.onChangeNombre }
                                 required/>
-                            <p style={{color: "red"}}>{this.state.errors["nombre"]}</p>
+                        <p style={{color: "red"}}>{this.state.errors["nombre"]}</p>
                     </div>
                     <div>
                         <label>Email:</label>
