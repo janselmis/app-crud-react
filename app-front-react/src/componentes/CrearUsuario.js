@@ -25,28 +25,70 @@ class CrearUsuario extends Component{
             nombre: '',
             email: '',
             edad: '',
-            password: ''
+            password: '',
+            errors:{}
         };
+    }
+
+    handleValidation(){
+        let errors = {};
+        let formIsValid = true;
+
+        //Name
+        if(!this.state.nombre){
+           formIsValid = false;
+           errors["nombre"] = "No puede estar vacio";
+        }
+
+        if(typeof this.state.nombre !== "undefined"){
+           if(!this.state.nombre.match(/^[a-zA-Z]+$/)){
+              formIsValid = false;
+              errors["nombre"] = "Solo letras";
+           }        
+        }
+
+        //Email
+        if(!this.state.email){
+           formIsValid = false;
+           errors["email"] = "No puede estar vacio";
+        }
+
+        if(typeof this.state.email !== "undefined"){
+           let lastAtPos = this.state.email.lastIndexOf('@');
+           let lastDotPos = this.state.email.lastIndexOf('.');
+
+           if (!(lastAtPos < lastDotPos && lastAtPos > 0 && this.state.email.indexOf('@@') == -1 && lastDotPos > 2 && (this.state.email.length - lastDotPos) > 2)) {
+              formIsValid = false;
+              errors["email"] = "Email no valido";
+            }
+       }  
+       this.setState({errors: errors});
+       return formIsValid;
     }
 
     onSubmit(evt){
         evt.preventDefault();
 
-        // Invocamos al servicio cliente HTTP, Ajax, fetch...
-        window.fetch("http://localhost:4000/api/usuarios/registro", {
-            method: 'post',
-            body: JSON.stringify({
-                "nombre": this.state.nombre,
-                "email": this.state.email,
-                "edad": this.state.edad,
-                "password": this.state.password
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((res)=>alert("Pues habra ido bien"))
-        .catch((vacas)=>alert("Pues habra ido mal"));
+        if(this.handleValidation()){
+            // Invocamos al servicio cliente HTTP, Ajax, fetch...
+            window.fetch("http://localhost:4000/api/usuarios/registro", {
+                method: 'post',
+                body: JSON.stringify({
+                    "nombre": this.state.nombre,
+                    "email": this.state.email,
+                    "edad": this.state.edad,
+                    "password": this.state.password
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((res)=>alert("Pues habra ido bien"))
+            .catch((vacas)=>alert("Pues habra ido mal"));
 
+            window.location = "/";
+        }else{
+            alert("ERROR");
+        }
         console.log(`Datos: ${this.state.nombre}, ${this.state.edad} , ${this.state.email} , ${this.state.password}`);
     }
 
@@ -83,31 +125,37 @@ class CrearUsuario extends Component{
                 <form onSubmit={this.onSubmit}>
                     <div>
                         <label>Nombre:</label>
-                        <input  type="text"
+                        <input  ref="nombre" type="text"
                                 placeholder="Introduzca su nombre"
                                 value={ this.state.nombre }
-                                onChange = { this.onChangeNombre }/>
+                                onChange = { this.onChangeNombre }
+                                required/>
+                            <p style={{color: "red"}}>{this.state.errors["nombre"]}</p>
                     </div>
                     <div>
                         <label>Email:</label>
-                        <input  type="email"
+                        <input  refs="email" type="email"
                                 placeholder="ejemplo@email.com"
                                 value={ this.state.email }
-                                onChange = { this.onChangeEmail }/>
+                                onChange = { this.onChangeEmail }
+                                required/>
+                         <p style={{color: "red"}}>{this.state.errors["email"]}</p>
                     </div>
                     <div>
                         <label>Edad:</label>
                         <input  type="number"
                                 placeholder="Mayor de edad pendejo"
                                 value={ this.state.edad }
-                                onChange = { this.onChangeEdad }/>
+                                onChange = { this.onChangeEdad }
+                                required/>
                     </div>
                     <div>
                         <label>Password:</label>
                         <input type="password"
                                 placeholder="Max 8 carac"
                                 value={ this.state.password }
-                                onChange = { this.onChangePassword }/>
+                                onChange = { this.onChangePassword }
+                                required/>
                     </div>
                     <div>
                         <input type="submit" value="Registrar"/>
